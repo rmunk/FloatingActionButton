@@ -59,6 +59,7 @@ public class FloatingActionButton extends ImageButton {
     private int mColorPressed;
     private int mColorDisabled;
     private int mColorRipple;
+    private int mTint;
     private Drawable mIcon;
     private int mIconSize = Util.dpToPx(getContext(), 24f);
     private Animation mShowAnimation;
@@ -123,6 +124,7 @@ public class FloatingActionButton extends ImageButton {
         mColorPressed = attr.getColor(R.styleable.FloatingActionButton_fab_colorPressed, 0xFFE75043);
         mColorDisabled = attr.getColor(R.styleable.FloatingActionButton_fab_colorDisabled, 0xFFAAAAAA);
         mColorRipple = attr.getColor(R.styleable.FloatingActionButton_fab_colorRipple, 0x99FFFFFF);
+        mTint = attr.getColor(R.styleable.FloatingActionButton_fab_tint, 0x00000000);
         mShowShadow = attr.getBoolean(R.styleable.FloatingActionButton_fab_showShadow, true);
         mShadowColor = attr.getColor(R.styleable.FloatingActionButton_fab_shadowColor, 0x66000000);
         mShadowRadius = attr.getDimensionPixelSize(R.styleable.FloatingActionButton_fab_shadowRadius, mShadowRadius);
@@ -344,6 +346,11 @@ public class FloatingActionButton extends ImageButton {
     }
 
     void updateBackground() {
+        if (mTint != 0) {
+            getIconDrawable().mutate();
+            getIconDrawable().setColorFilter(mTint, PorterDuff.Mode.SRC_ATOP);
+        }
+
         LayerDrawable layerDrawable;
         if (hasShadow()) {
             layerDrawable = new LayerDrawable(new Drawable[]{

@@ -48,6 +48,7 @@ public class FloatingMenusActivity extends AppCompatActivity {
         FloatingActionMenu menu4 = (FloatingActionMenu) findViewById(R.id.menu4);
         FloatingActionMenu menuDown = (FloatingActionMenu) findViewById(R.id.menu_down);
         FloatingActionMenu menuLabelsRight = (FloatingActionMenu) findViewById(R.id.menu_labels_right);
+        final FloatingActionMenu menuDynamic = (FloatingActionMenu) findViewById(R.id.menu_dynamic);
 
         final FloatingActionButton programFab1 = new FloatingActionButton(this);
         programFab1.setButtonSize(FloatingActionButton.SIZE_MINI);
@@ -152,6 +153,48 @@ public class FloatingMenusActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(FloatingMenusActivity.this, RecyclerViewActivity.class));
+            }
+        });
+
+        findViewById(R.id.fab_up).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                menuDynamic.setOpenDirection(FloatingActionMenu.OpenDirection.UP);
+                final int translationX = menuDynamic.getMeasuredWidth() / 2 - menuDynamic.getMenuButton().getMeasuredWidth() / 2 - menuDynamic.getPaddingRight() + 1;
+                menuDynamic.setTranslationX(-translationX);
+                final int translationY = menuDynamic.getMeasuredHeight() / 2 - menuDynamic.getMenuButton().getMeasuredHeight() / 2 - menuDynamic.getPaddingBottom();
+                menuDynamic.setTranslationY(-translationY);
+            }
+        });
+
+        findViewById(R.id.fab_down).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                menuDynamic.setOpenDirection(FloatingActionMenu.OpenDirection.DOWN);
+                final int translationX = menuDynamic.getMeasuredWidth() / 2 - menuDynamic.getMenuButton().getMeasuredWidth() / 2 - menuDynamic.getPaddingRight() + 1;
+                menuDynamic.setTranslationX(-translationX);
+                final int translationY = menuDynamic.getMeasuredHeight() / 2 - menuDynamic.getMenuButton().getMeasuredHeight() / 2 - menuDynamic.getPaddingTop();
+                menuDynamic.setTranslationY(translationY);
+            }
+        });
+
+        findViewById(R.id.fab_left).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                menuDynamic.setOpenDirection(FloatingActionMenu.OpenDirection.LEFT);
+                final int translationX = menuDynamic.getMeasuredWidth() / 2 - menuDynamic.getMenuButton().getMeasuredWidth() / 2 - menuDynamic.getPaddingRight() - 1;
+                menuDynamic.setTranslationX(-translationX);
+                menuDynamic.setTranslationY(0);
+            }
+        });
+
+        findViewById(R.id.fab_right).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                menuDynamic.setOpenDirection(FloatingActionMenu.OpenDirection.RIGHT);
+                final int translationX = menuDynamic.getMeasuredWidth() / 2 - menuDynamic.getMenuButton().getMeasuredWidth() / 2 - menuDynamic.getPaddingLeft() + 1;
+                menuDynamic.setTranslationX(translationX);
+                menuDynamic.setTranslationY(0);
             }
         });
 
